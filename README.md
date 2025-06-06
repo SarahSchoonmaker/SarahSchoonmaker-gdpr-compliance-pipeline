@@ -1,4 +1,4 @@
-# GDPR Data Engineering & LLM Automation Pipeline
+# GDPR Data Pipeline
 
 This project builds a scalable data engineering pipeline to analyze and automate compliance review of SQL logs, focusing on GDPR-sensitive data detection. The system integrates real-time ingestion (Kafka), transformation (Spark, dbt), orchestration (Airflow), and automation using LLMs to flag personal data references in SQL logs.
 
