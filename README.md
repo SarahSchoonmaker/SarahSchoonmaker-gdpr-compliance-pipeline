@@ -1,112 +1,17 @@
-# GDPR Data Engineering & LLM Automation Pipeline
-
-This project builds a scalable data engineering pipeline to analyze and automate compliance review of SQL logs, focusing on GDPR-sensitive data detection. The system integrates real-time ingestion (Kafka), transformation (Spark, dbt), orchestration (Airflow), and automation using LLMs to flag personal data references in SQL logs.
-
----
-
-## 📦 PHASE 1: Data Ingestion & Setup
-
-**Goal:** Ingest GDPR violation dataset and prepare it for processing in the pipeline.
-
-### ✅ Components:
-
-- Download dataset from Kaggle (`jessemostipak/gdpr-violations`)
-- Load and preview data with `pandas`
-- Upload the dataset to AWS S3
-- Lay groundwork for transformation and analysis
-
-### 📁 Files:
-
-- `get_dataset.py`: Downloads GDPR dataset using `kagglehub`
-- `upload_to_s3.py`: Uploads the dataset to an S3 bucket
-- `.env`: Stores Kaggle API credentials securely
-- `requirements.txt`: Python dependencies
-
----
-
-## ⚙️ PHASE 2: Pipeline Orchestration & Modeling
-
-**Goal:** Build a data pipeline to clean, structure, and schedule processing jobs.
-
-### ✅ Components:
-
-- **Apache Spark**: Processes raw SQL logs from S3 or Kafka
-- **dbt (Data Build Tool)**: Applies layered SQL transformations with testing
-- **Apache Airflow**: Orchestrates ingestion → transformation → LLM automation
-
-### 💡 Workflow:
-
-1. Ingest streaming logs from Kafka
-2. Clean and enrich data with Spark
-3. Load to warehouse (Redshift or Postgres)
-4. Use `dbt` to model and validate
-5. Trigger flow with Airflow DAGs
-
----
-
-## 🤖 PHASE 3: LLM + NLP Automation
-
-**Goal:** Automatically flag GDPR-sensitive fields in SQL queries using LLMs or NLP.
-
-### ✅ Components:
-
-- Use OpenAI's GPT or `sqlparse` + spaCy
-- Scan SQL logs for risky fields like `email`, `ip_address`, `ssn`, `location`
-- Generate logs or alerts for compliance review
-- Visualize or store results in dashboard or S3/DB
-
-### 🧠 Sample Prompt:
-
-> "Analyze this SQL query and flag any GDPR-sensitive fields: `SELECT user_id, email, ip_address FROM users;`"
-
----
-
-## 🚀 Technologies Used
-
-- **Python** & **Pandas**
-- **AWS (S3, Athena, Glue, Redshift)**
-- **Apache Kafka** – real-time ingestion
-- **Apache Spark** – batch/stream processing
-- **dbt** – data modeling & testing
-- **Apache Airflow** – workflow orchestration
-- **OpenAI / LangChain** – LLM for SQL audit automation
-
----
-
-## 🧰 Setup
-
-```bash
-# Install dependencies
-python -m pip install -r requirements.txt
-
-# Configure Kaggle
-Place credentials in .env:
-KAGGLE_USERNAME=your_kaggle_username
-KAGGLE_KEY=your_kaggle_key
-
-# Download GDPR dataset
-python get_dataset.py
-
-# Upload to S3
-python upload_to_s3.py
-```
-
 # GDPR Compliance Analytics Pipeline
 
 This project builds an end-to-end data pipeline on AWS to ingest, analyze, and visualize GDPR violation data using Athena, Lambda, Glue, and QuickSight. It enables organizations to monitor and understand compliance trends, uncover risk patterns, and communicate regulatory exposure through interactive dashboards.
 
 ---
 
-## 🎯 Project Purpose
+## 🌟 Project Purpose
 
-This pipeline analyzes structured GDPR enforcement data combined with the legal articles and summaries describing each violation. It helps uncover:
+GDPR imposes strict requirements on how personal data is collected, processed, and stored. Non-compliance can lead to fines in the millions. The goal of this project is to:
 
-- Common patterns in GDPR article violations
-- Regulatory behavior across EU countries and data protection authorities
-- Severity of fines by category or article type
-- How violations align with specific GDPR chapters and legal language
-
-The project uses AWS Glue, Athena, Lambda, and QuickSight to automate ingestion, analysis, and visualization. It's ideal for privacy teams, policy researchers, and compliance officers looking to gain insights from real-world GDPR enforcement data.
+- Automatically ingest GDPR violations data from public sources
+- Detect high-risk violation types and trends
+- Visualize top offending countries, authorities, and companies
+- Enable compliance teams to act on real-time insights
 
 ---
 
@@ -148,6 +53,14 @@ The project uses AWS Glue, Athena, Lambda, and QuickSight to automate ingestion,
 - AWS account with permissions to use S3, Glue, Athena, Lambda, QuickSight
 - `kaggle.json` API token (for optional data download step)
 
+## .env
+
+KAGGLE_USERNAME=
+KAGGLE_KEY=
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_REGION=
+
 ### Deployment Steps
 
 1. Upload GDPR dataset to S3 (`s3://gdpr-data-kaggle/`)
@@ -168,6 +81,15 @@ QuickSight is tightly integrated with Athena and Glue, making it the perfect too
 
 ---
 
+## 📊 Future Enhancements
+
+- Integrate LLMs to scan SQL logs for GDPR-sensitive fields
+- Add Redshift as a long-term data store
+- Enable Slack/email alerts for violations over thresholds
+- Create role-based QuickSight dashboards (Compliance, Legal, Exec)
+
+---
+
 ## 🚧 Sample Athena Query (Used in Lambda)
 
 ```sql
@@ -177,6 +99,8 @@ WHERE fine_amount > 1000000
 ORDER BY fine_amount DESC
 LIMIT 10;
 ```
+
+---
 
 ## Quicksight visualization
 
