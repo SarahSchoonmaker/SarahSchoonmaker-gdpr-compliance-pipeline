@@ -55,7 +55,13 @@ GDPR imposes strict requirements on how personal data is collected, processed, a
 
 ## .env
 
-<pre> ``` KAGGLE_USERNAME= KAGGLE_KEY= AWS_ACCESS_KEY_ID= AWS_SECRET_ACCESS_KEY= AWS_REGION= ``` </pre>
+```env
+KAGGLE_USERNAME=
+KAGGLE_KEY=
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_REGION=
+```
 
 ### Deployment Steps
 
